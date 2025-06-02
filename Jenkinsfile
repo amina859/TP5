@@ -1,30 +1,29 @@
-/ Déclaration du pipeline Jenkins
 pipeline {
      agent {
         label 'windows'
     }
-    // Déclarer les variables d'environnement globales
+    
     environment {
-        DOCKER_USERNAME = "bamita" // username docker
-        IMAGE_VERSION = "1.${BUILD_NUMBER}"  // version dynamique de l’image
-        DOCKER_IMAGE = "${DOCKER_USERNAME}/tp-app:${IMAGE_VERSION}" // nom de l’image docker
-        DOCKER_CONTAINER = "ci-cd-html-css-app"  // nom du conteneur
+        DOCKER_USERNAME = "bamita" 
+        IMAGE_VERSION = "1.${BUILD_NUMBER}"  
+        DOCKER_IMAGE = "${DOCKER_USERNAME}/tp-app:${IMAGE_VERSION}" 
+        DOCKER_CONTAINER = "ci-cd-html-css-app"  
     }
-    // Les étapes du pipeline
+    
     stages {
-        // Étape 1 : Récupération du code source depuis GitHub
+        
         stage("Checkout") {
             steps {
                 git branch: 'master', url: 'https://github.com/amina859/TP5.git'
             }
         }
-        // Étape 2 : Exécution des tests
+        
         stage("Test") {
             steps {
                 echo "Tests en cours"
             }
         }
-        // Étape 3 : Création de l'image Docker
+        
         stage("Build Docker Image") {
             steps {
                 script {
@@ -32,7 +31,7 @@ pipeline {
                 }
             }
         }
-        // Étape 4 : Publication de l'image sur Docker Hub
+        
         stage("Push image to Docker Hub") {
             steps {
                 script {
@@ -46,7 +45,7 @@ pipeline {
                 }
             }
         }
-        // Étape 5 : Déploiement de l'application
+        
         stage("Deploy") {
             steps {
                 script {
