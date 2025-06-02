@@ -1,7 +1,9 @@
 / Déclaration du pipeline Jenkins
 pipeline {
     // Exécute le pipeline sur n'importe quel agent
-    agent any
+     agent {
+        label 'windows'
+    }
     // Déclarer les variables d'environnement globales
     environment {
         DOCKER_USERNAME = "bamita" // username docker
