@@ -49,14 +49,14 @@ pipeline {
         stage("Deploy") {
             steps {
                 script {
-                    bat """
-                    # Arrête le conteneur s'il existe
-                    docker container stop $DOCKER_CONTAINER || true
-                    # supprime le conteneur s'il existe
-                    docker container rm $DOCKER_CONTAINER || true
-                    # Lance un nouveau conteneur en mode détaché(en arrière-plan )
-                    docker container run -d --name $DOCKER_CONTAINER -p 8080:80 $DOCKER_IMAGE
-                    """
+                   bat """
+                        REM Arrête le conteneur s'il existe
+                        docker container stop $DOCKER_CONTAINER || exit 0
+                        REM Supprime le conteneur s'il existe
+                        docker container rm $DOCKER_CONTAINER || exit 0
+                        REM Lance un nouveau conteneur en mode détaché
+                        docker container run -d --name $DOCKER_CONTAINER -p 8080:80 $DOCKER_IMAGE
+                        """
                 }
             }
         }
