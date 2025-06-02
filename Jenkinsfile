@@ -1,6 +1,5 @@
 / Déclaration du pipeline Jenkins
 pipeline {
-    // Exécute le pipeline sur n'importe quel agent
      agent {
         label 'windows'
     }
